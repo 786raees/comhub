@@ -272,5 +272,5 @@ tags
 comhub/media/
 
 .pytest_cache/
-# .env
+.env
 .envs/*
