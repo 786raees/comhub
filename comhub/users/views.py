@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
-
+from django.shortcuts import redirect
 User = get_user_model()
 
 
@@ -21,7 +22,7 @@ user_detail_view = UserDetailView.as_view()
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = User
-    fields = ["name","address","phone_number"]
+    fields = ["name", "address", "phone_number"]
     success_message = _("Information successfully updated")
 
     def get_success_url(self):
@@ -46,3 +47,11 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+
+@login_required
+def delete_user(request, username):
+    user = User.objects.filter(username=username, customer_of=request.user).first()
+    user.delete()
+    return redirect('home')
+    
