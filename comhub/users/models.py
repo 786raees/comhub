@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, TextField
+from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from model_utils.fields import StatusField
@@ -20,6 +21,7 @@ class User(AbstractUser):
     phone_number = PhoneNumberField(_("User's Phone Number"), blank=True)
     user_type_choices = Choices('Admin','Suplier','Customer',)
     user_type = StatusField(choices_name='user_type_choices')
+    customer_of = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
 
     first_name = None  # type: ignore
     last_name = None  # type: ignore

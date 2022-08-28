@@ -1,5 +1,25 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-{{form|crispy}}
+<div class="row">
+    <div class="col-12 alert alert-primary text-center">
+        <h1>
+            {{request.user.name|title}}'s Customer
+        </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="col-12 alert alert-danger text-center">
+            <h3>
+                Add Customer
+            </h3>
+        </div>
+        <form action="." method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button class="btn btn-info m-2 p-2 col-3" type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+    </div>
+</div>
 {% endblock content %}
