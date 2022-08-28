@@ -74,3 +74,9 @@ def customer_file_upload_page(request, username, file_id):
         "form": form,
     }
     return render(request, 'pages/customer_file_page.html', context)
+
+@login_required
+def delete_file(request, file_id):
+    file = File.objects.filter(id=file_id).first()
+    file.delete()
+    return redirect("customer_file_page", username=(file.assigned_to.username))
