@@ -72,6 +72,7 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
+    "phonenumber_field",
     "crispy_forms",
     "crispy_bootstrap5",
     "allauth",
@@ -81,6 +82,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "comhub.users",
+    "comhub.file_sharing_app.apps.FileSharingAppConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

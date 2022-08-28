@@ -15,7 +15,10 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserAdminCreationForm
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("name", "email")}),
+        (_("Personal info"), {"fields": ("name", "email",
+                                         "address",
+                                         "phone_number",
+                                         "user_type")}),
         (
             _("Permissions"),
             {
@@ -32,3 +35,6 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     list_display = ["username", "name", "is_superuser"]
     search_fields = ["name"]
+    def get_list_filter(self, request):
+        new_filter = super().get_list_filter(request) + ('user_type',)
+        return new_filter
