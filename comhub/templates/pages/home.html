@@ -38,7 +38,7 @@
                     {% for customer in request.user.user_set.all %}
                     <tr>
                         <td scope="row">{{forloop.counter}}</td>
-                        <td><a href="#">{% if customer.name %}{{customer.name}}{% else %}{{customer.username}}{% endif %}</a></td>
+                        <td><a href="{% url 'customer_file_page' customer.username %}">{% if customer.name %}{{customer.name}}{% else %}{{customer.username}}{% endif %}</a></td>
                         <td>
                             <a class="btn btn-warning" href="{% url 'update_user' customer.username %}" role="button"><i class="fas fa-edit  fa-lg fa-fw"></i></a>
                             <a class="btn btn-danger" href="{% url 'users:delete' customer.username %}" role="button"><i class="fas fa-trash-alt fa-lg fa-fw"></i></a>
