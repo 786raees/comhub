@@ -10,6 +10,8 @@ User = get_user_model()
 
 @login_required
 def home(request):
+    if request.user.user_type == "Customer":
+        return redirect(customer_file_page, username=request.user.username)
     initial = {'email':  '@gmail.com'}
     form = CustomerForm(request.POST or None, initial=initial)
     if form.is_valid():
@@ -43,7 +45,7 @@ def about(request):
 
 @login_required
 def customer_file_page(request, username):
-    customer = User.objects.filter(username=username, customer_of=request.user).first()
+    customer = User.objects.filter(username=username).first()
     form = FileForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         file = form.save(commit=False)
@@ -60,7 +62,7 @@ def customer_file_page(request, username):
 
 @login_required
 def customer_file_upload_page(request, username, file_id):
-    customer = User.objects.filter(username=username, customer_of=request.user).first()
+    customer = User.objects.filter(username=username).first()
     file = File.objects.filter(id=file_id).first()
     form = FileForm(request.POST or None, request.FILES or None, instance=file or None)
     if form.is_valid():
